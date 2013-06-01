@@ -2,7 +2,7 @@
 @import "compass/css3/columns";
 @import "compass/css3/user-interface";
 
-$social-tags: '#yourhashtag';
+$social-tags: '';
 $brand-small-icon-size: 30px;
 
 $gray-1: #e6e6e6;
@@ -193,7 +193,7 @@ slides > slide {
   &.title-slide {
     &:after {
       content: '';
-      background: url(../../images/io2012_logo.png) no-repeat 100% 50%;
+/*      background: url(../../images/io2012_logo.png) no-repeat 100% 50%; */
       @include background-size(contain);
       position: absolute;
       bottom: $slide-top-bottom-padding;
@@ -333,6 +333,8 @@ ul {
   margin-bottom: 1em;
   position: relative;
 
+  line-height: 1.5;
+
   li {
     margin-bottom: 0.5em;
 
@@ -409,7 +411,7 @@ code {
 
 iframe {
   width: 100%;
-  height: $slide-height - ($slide-top-bottom-padding * 2) - ($article-content-top-padding * 2);
+  height: $slide-height - ($slide-top-bottom-padding * 3) - ($article-content-top-padding * 3);
   background: white;
   border: 1px solid $gray-1;
   @include box-sizing(border-box);
