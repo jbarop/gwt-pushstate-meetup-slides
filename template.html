@@ -26,14 +26,9 @@ URL: https://code.google.com/p/io-2012-slides
 
 <slides class="layout-widescreen">
 
-  <slide class="logoslide nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/google_developers_logo.png"></span>
-    </article>
-  </slide>
 
   <slide class="title-slide segue nobackground">
-    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <aside class="gdbar"><img src="images/gwt-logo.png"></aside>
     <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
@@ -44,334 +39,288 @@ URL: https://code.google.com/p/io-2012-slides
 
   <slide>
     <hgroup>
-      <h2>Slide with Bullets</h2>
+      <h2>Agenda</h2>
     </hgroup>
     <article>
       <ul>
-        <li>Titles are formatted as Open Sans with bold applied and font size is set at 45</li>
-        <li>Title capitalization is title case
+        <li>Why bother?</li>
+        <li>GWT's Standard History Mechanism</li>
+        <li>HTML5 History API</li>
+        <li>gwt-pushstate</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Why bother?</h2>
+      <h3>Because good URLs matter!</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Browser history is an important piece of the user interface</li>
+        <li>User has expectations compared to traditional web pages</li>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Why bother?</h2>
+      <h3>An URL ...</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>... identifies an unique resource</li>
+        <li>... will be linked, bootmarked and shared by Users</li>
+        <li>... will be indexed by search engines</li>
+        <li>... is the archway to your application</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GWT's Standard History Mechanism</h2>
+      <h3>Integration with browser history</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>GWT applications usually consist only of a single page/resource</li>
+        <li>Interaction with browser history has to be simulated<li>
+        <li>Assigning new URLs trigger full page reloads
           <ul>
-            <li>Subtitle capitalization is title case</li>
+            <li>Workaround: Keep track off the current position in fragment identifier</li>
           </ul>
         </li>
-        <li>Subtitle capitalization is title case</li>
-        <li>Titles and subtitles should never have a period at the end</li>
       </ul>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>Slide with Bullets that Build</h2>
-      <h3>Subtitle Placeholder</h3>
+      <h2>GWT's Standard History Mechanism</h2>
+      <h3>Drawbacks with the fragment identifier</h3>
     </hgroup>
     <article>
-      <p>A list where items build:</p>
-      <ul class="build">
-        <li>Pressing 'h' highlights code snippets</li>
-        <li>Pressing 'p' toggles speaker notes (if they're on the current slide)</li>
-        <li>Pressing 'f' toggles fullscreen viewing</li>
-        <li>Pressing 'w' toggles widescreen</li>
-        <li>Pressing 'o' toggles overview mode</li>
-        <li>Pressing 'ESC' toggles off these goodies</li>
-      </ul>
-      <p>Another list, but items fade as they build:</p>
-      <ul class="build fade">
-        <li>Hover over me!</li>
-        <li>Hover over me!</li>
-        <li>Hover over me!</li>
-      </ul>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with (Smaller Font)</h2>
-    </hgroup>
-    <article class="smaller">
       <ul>
-        <li>All <a href="http://google.com">links</a> open in new tabs.</li>
-        <li>To change that this, add <code>target="_self"</code> to the link.</li>
+        <li>The fragment specifies a location within a resource
+          <ul>
+            <li>Not a part of the URI itself (<a href="http://tools.ietf.org/html/rfc2396#section-4.1">RFC2396 #4.1</a>)</li>
+            <li><a href="http://foo.com/#one">http://foo.com/#one</a> and <a href="http://foo.com/#two">http://foo.com/#two</a> reference the same resource</li>
+            <li>That's really bad!</li>
+          </ul>
+        </li>
+        <li>Fragments are ignored in requests</li>
+        <li>Crawlers ignore fragments</li>
       </ul>
     </article>
   </slide>
 
-  <slide hidden>
-    Hidden slides are left out of the presentation.
-  </slide>
 
   <slide>
     <hgroup>
-      <h2>Code Slide (with Subtitle Placeholder)</h2>
-      <h3>Subtitle Placeholder</h3>
+      <h2>GWT's Standard History Mechanism</h2>
+      <h3>The implications</h3>
     </hgroup>
     <article>
-      <p>Press 'h' to highlight important sections of code (wrapped in <code>&lt;b&gt;</code>).</p>
-      <pre class="prettyprint" data-lang="javascript">
-&lt;script type='text/javascript'&gt;
-  // Say hello world until the user starts questioning
-  // the meaningfulness of their existence.
-  function helloWorld(world) {
-    <b>for (var i = 42; --i &gt;= 0;) {
-      alert('Hello ' + String(world));
-    }</b>
-  }
-&lt;/script&gt;
-</pre>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Code Slide (Smaller Font)</h2>
-    </hgroup>
-    <article class="smaller">
-      <pre class="prettyprint" data-lang="javascript">
-// Say hello world until the user starts questioning
-// the meaningfulness of their existence.
-function helloWorld(world) {
-  for (var i = 42; --i &gt;= 0;) {
-    alert('Hello ' + String(world));
-  }
-}
-</pre>
-<pre class="prettyprint" data-lang="css">
-&lt;style&gt;
-  p { color: pink }
-  b { color: blue }
-&lt;/style&gt;
-</pre>
-<pre class="prettyprint" data-lang="html">
-&lt;!DOCTYPE html>
-&lt;html>
-&lt;head>
-  &lt;title>My Awesome Page&lt;/title>
-&lt;/head>
-&lt;body>
-  &lt;p&gt;Hello world&lt;/p&gt;
-&lt;body>
-&lt;/html>
-</pre>
-    </article>
-  </slide>
-
-  <slide>
-    <aside class="note">
-      <section>
-        <ul>
-          <li>Point I wanted to make #1</li>
-          <li>Point I wanted to make #2</li>
-          <li>Point I wanted to make #3</li>
-          <li>Example <a href="#">link</a> in notes.</li>
-        </ul>
-        <p><b>Remember to say this tag line!</b></p>
-      </section>
-    </aside>
-    <hgroup>
-      <h2>Slide with Speaker Notes</h2>
-    </hgroup>
-    <article>
-      <p>Press 'p' to toggle speaker notes.</p>
-    </article>
-  </slide>
-
-  <slide>
-    <aside class="note">
-      <section>
-        <ul>
-          <li>See this amazing link: <a href="http://www.google.com">link</a>.</li>
-        </ul>
-        <p><b>Remember to say this tag line!</b></p>
-      </section>
-    </aside>
-    <hgroup>
-      <h2>Presenter Mode</h2>
-    </hgroup>
-    <article>
-      <p>Add <code><a href="?presentme=true" target="_self">?presentme=true</a></code> to the URL to enabled presenter mode.
-      This setting is sticky, meaning refreshing the page will persist presenter
-      mode.</p>
-      <p>Hit <code><a href="?presentme=false" target="_self">?presentme=false</a></code> to disable presenter mode.</p>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with Image</h2>
-    </hgroup>
-    <article>
-      <img src="images/chart.png" class="reflect" alt="Description" title="Description">
-      <footer class="source">source: place source info here</footer>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide with Image (Centered horz/vert)</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <img src="images/barchart.png" alt="Description" title="Description">
-      <footer class="source">source: place source info here</footer>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option A</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article>
-      <table>
-        <tr>
-          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
-        </tr>
-        <tr>
-          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option A (Smaller Text)</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article class="smaller">
-      <table>
-        <tr>
-          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
-        </tr>
-        <tr>
-          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Table Option B</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-    <article>
-      <table class="rows">
-        <tr>
-          <th>Header 1</th><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 2</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 3</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 4</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-        <tr>
-          <th>Header 5</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
-        </tr>
-      </table>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Slide Styles</h2>
-    </hgroup>
-    <article class="smaller">
-      <div class="columns-2">
-        <ul>
-          <li class="red">class="red"</li>
-          <li class="red2">class="red2"</li>
-          <li class="red3">class="red3"</li>
-          <li class="blue">class="blue"</li>
-          <li class="blue2">class="blue2"</li>
-          <li class="blue3">class="blue3"</li>
-          <li class="green">class="green"</li>
-          <li class="green2">class="green2"</li>
-        </ul>
-        <ul>
-          <li class="green3">class="green3"</li>
-          <li class="yellow">class="yellow"</li>
-          <li class="yellow2">class="yellow2"</li>
-          <li class="yellow3">class="yellow3"</li>
-          <li class="gray">class="gray"</li>
-          <li class="gray2">class="gray2"</li>
-          <li class="gray3">class="gray3"</li>
-          <li class="gray4">class="gray4"</li>
-        </ul>
-      </div>
-      <div class="centered" style="margin-top:2em">
-        I am centered text with a <button>Button</button> and <button disabled>Disabled</button> button.
+      <ul>
+        <li>It's a hack</li>
+        <li>It's ugly</li>
+        <li>It's fiddly to support crawlers
+          <ul>
+            <li>Handle not standardized pretty and ugly URLs ("_escaped_fragment_")</li>
+          </ul>
+        </li>
+        <li>It's not maintainable
+          <ul>
+            <li>You cannot rely on the fragment identifier on the server side</li>
+            <li>Simple server redirects are impossible</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="centered red" style="margin-top:2.5em">
+        More and more workarounds needed to deal with the actual workaround
       </div>
     </article>
   </slide>
 
-  <slide class="segue dark nobackground">
-    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
-    <hgroup class="auto-fadein">
-      <h2>Segue Slide</h2>
-      <h3>Subtitle Placeholder</h3>
-    </hgroup>
-  </slide>
 
-  <slide class="fill nobackground" style="background-image: url(images/sky.jpg)">
+<slide>
     <hgroup>
-      <h2 class="white">Full Image (with Optional Header)</h2>
+      <h2>HTML5 History API</h2>
+      <h3>To the rescue?</h3>
     </hgroup>
-    <footer class="source white">www.flickr.com/photos/25797459@N06/5438799763/</footer>
-  </slide>
-
-  <slide class="segue dark quote nobackground">
-    <aside class="gdbar right bottom"><img src="images/google_developers_icon_128.png"></aside>
-    <article class="flexbox vleft auto-fadein">
-      <q>
-        This is an example of quote text.
-      </q>
-      <div class="author">
-        Name<br>
-        Company
-      </div>
+    <article>
+      <ul>
+        <li>Functions: <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#dom-history-pushstate">window.history.pushState</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#dom-history-replacestate">window.history.replaceState</a>
+          <ul>
+            <li>Modify the browsers history stack</li>
+            <li>Visibly change the URL</li>
+            <li>Without page reload</li>
+          </ul>
+        </li>
+        <li>Event: <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#event-popstate">popstate</a>
+          <ul>
+            <li>Fired when navigating to a session history entry</li>
+          </ul>
+        </li>
+      </ul>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>Slide with Iframe</h2>
+      <h2>HTML5 History API</h2>
+      <h3>Considerations for an implementation</h3>
     </hgroup>
     <article>
-      <iframe data-src="http://www.google.com/doodle4google/history.html"></iframe>
+      <ul>
+        <li>Browser support</li>
+        <li>Seamless integration into existing GWT ecosystem
+          <ul>
+            <li>Application should not care about History implementation being used</li>
+            <li>Don't break GWT features (Development Mode, Testing, ...)</li>
+          </ul>
+        </li>
+      </ul>
     </article>
   </slide>
 
   <slide>
+    <hgroup>
+      <h2>HTML5 History API</h2>
+      <h3>Can I use...</h3>
+    </hgroup>
     <article>
-      <iframe data-src="http://www.google.com/doodle4google/history.html"></iframe>
+      <iframe data-src="http://caniuse.com/history/embed/eras=-4,2"></iframe>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Provides easy to use HTML5 pushState support for GWT</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li><a href="https://github.com/jbarop/gwt-pushstate">https://github.com/jbarop/gwt-pushstate</a></li>
+        <li>Apache License, Version 2.0</li>
+        <li>Started to get faster feedback than a patch against trunk</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Easy to use</h3>
+    </hgroup>
+    <article>
+      <p>Add Maven dependency</p>
+      <pre class="prettyprint" data-lang="xml">
+&lt;dependency&gt;
+    &lt;groupId&gt;de.barop.gwt&lt;/groupId&gt;
+    &lt;artifactId&gt;gwt-pushstate&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+      </pre>
+      <p>Add module inherits</p>
+      <pre class="prettyprint" data-lang="xml">
+&lt;inherits name="de.barop.gwt.PushState" /&gt;
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Good integration into GWT</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Hooks onto GWT's standard History API</li>
+        <li>Plays nice with existing applications and MVP frameworks</li>
+        <li>Development Mode works</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Transparent fallback to fragment identifier for non pushState browsers</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Fallback to hashbang URLs for browsers without HTML5 History support</li>
+        <li>Application has to not worry about it</li>
+        <li>Automaticly "convert" URL on startup when necessary
+          <ul>
+            <li>"foo.com/token" becomes "foo.com/#/token" (no pushState support)</li>
+            <li>"foo.com/#/token" becomes "foo.com/token"  (pushState support)</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Extended (Inline)Hyperlink widgets for clean URLs in navigation hyperlinks</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Render (Inline)Hyperlink widgets in "pushState" format</li>
+        <li>Regardless of whether pushState is supported or not</li>
+        <li>Works because Hyperlink uses History.newItem() to trigger navigation</li>
+        <li>Consistent links regardless of pushState support</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Future</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Upcoming for gwt-pushstate-1.1
+          <ul>
+            <li>Bugfixes</li>
+            <li>Better QueryString handling (now possible with GWT 2.5.1)</li>
+            <li>Workaround for browsers with broken pushState support</li>
+          </ul>
+        </li>
+        <li>Contribution back into GWT?</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>gwt-pushstate</h2>
+      <h3>Pitfalls</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Server configuration required for deeplinking
+          <ul>
+            <li>URL rewriting</li>
+          </ul>
+        </li>
+        <li>Complete path treated as history token</li>
+        <li>Path depended stuff might break
+          <ul>
+            <li>GWT.getHostPageBaseURL()</li>
+            <li>GWTP-dispatch's auto discovery of service URLs</li>
+            <li>... ?</li>
+          </ul>
+        </li>
+      </ul>
     </article>
   </slide>
 
@@ -379,17 +328,10 @@ function helloWorld(world) {
     <aside class="gdbar right"><img src="images/google_developers_icon_128.png"></aside>
     <article class="flexbox vleft auto-fadein">
       <h2>&lt;Thank You!&gt;</h2>
-      <p>Important contact information goes here.</p>
     </article>
     <p class="auto-fadein" data-config-contact>
       <!-- populated from slide_config.json -->
     </p>
-  </slide>
-
-  <slide class="logoslide dark nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/google_developers_logo_white.png"></span>
-    </article>
   </slide>
 
   <slide class="backdrop"></slide>
